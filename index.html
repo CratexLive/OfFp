@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CricxCrate — Live</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script type="module" src="./components/cricx-nav.js"></script>
+<script type="module" src="./components/cricx-hero.js"></script>
+<script type="module" src="./components/cricx-schedule.js"></script>
+<script type="module" src="./components/cricx-sports.js"></script>
+<script type="module" src="./components/cricx-player.js"></script>
+<script type="module" src="./components/cricx-modals.js"></script>
+<style>
+  body{background:#060705;color:#f2efe4;margin:0;font-family:"DM Sans",sans-serif;}
+  .container{width:min(1500px,calc(100% - 68px));margin:auto;padding-top:100px;}
+</style>
+</head>
+<body>
+  <cricx-modals></cricx-modals>
+  <cricx-nav></cricx-nav>
+  <cricx-hero id="hero"></cricx-hero>
+  <div class="container">
+    <h2>Schedule</h2>
+    <cricx-schedule id="schedule"></cricx-schedule>
+    <h2 style="margin-top:40px">Sports</h2>
+    <cricx-sports id="sports"></cricx-sports>
+  </div>
+  <script type="module">
+    import { CONFIG } from './config.js';
+    async function load() {
+      const res = await fetch(CONFIG.jsonUrl);
+      const data = await res.json();
+      const matches = Array.isArray(data) ? data : (data.matches || Object.values(data));
+      
+      document.getElementById('hero').matches = matches;
+      document.getElementById('schedule').matches = matches;
+      document.getElementById('sports').sports = [
+        { name: "Cricket", image: matches[0]?.image },
+        { name: "Football", image: matches[1]?.image },
+        { name: "Tennis", image: matches[2]?.image }
+      ];
+
+      document.addEventListener('select-match', e => {
+        const player = document.createElement('cricx-player');
+        player.match = e.detail;
+        document.body.appendChild(player);
+      });
+      document.addEventListener('watch-match', e => {
+        const player = document.createElement('cricx-player');
+        player.match = e.detail;
+        document.body.appendChild(player);
+      });
+    }
+    load();
+  </script>
+</body>
+</html>
 
