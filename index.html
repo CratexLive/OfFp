@@ -5,12 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>CricxCrate — Live</title>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script type="module" src="./components/cricx-nav.js"></script>
-<script type="module" src="./components/cricx-hero.js"></script>
-<script type="module" src="./components/cricx-schedule.js"></script>
-<script type="module" src="./components/cricx-sports.js"></script>
-<script type="module" src="./components/cricx-player.js"></script>
-<script type="module" src="./components/cricx-modals.js"></script>
+<script type="module" src="./CricxCrate ui/ui.js"></script>
 <style>
   body{background:#060705;color:#f2efe4;margin:0;font-family:"DM Sans",sans-serif;}
   .container{width:min(1500px,calc(100% - 68px));margin:auto;padding-top:100px;}
@@ -27,7 +22,7 @@
     <cricx-sports id="sports"></cricx-sports>
   </div>
   <script type="module">
-    import { CONFIG } from './config.js';
+    import { CONFIG } from './CricxCrate ui/config.js';
     async function load() {
       const res = await fetch(CONFIG.jsonUrl);
       const data = await res.json();
@@ -56,4 +51,3 @@
   </script>
 </body>
 </html>
-
